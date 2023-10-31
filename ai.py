@@ -8,10 +8,8 @@ state_size = 6
 action_size = 4
 
 # Define the Q-network
-if os.path.isfile("/kaggle/working/model.h5"):
-    model = tf.keras.models.load_model("/kaggle/working/model.h5")
-elif os.path.isfile("/kaggle/input/trackgame/model.h5"):
-    model = tf.keras.models.load_model("/kaggle/input/trackgame/model.h5")
+if os.path.isfile("model.h5"):
+    model = tf.keras.models.load_model("model.h5")
 else:
     model = tf.keras.Sequential([
         tf.keras.layers.Dense(24, activation='relu', input_shape=(state_size,)),
@@ -25,7 +23,7 @@ loss_fn = tf.keras.losses.MeanSquaredError()
 
 # Hyperparameters
 gamma = 0.95  # Discount factor
-epsilon = 1.0  # Exploration rate
+epsilon = 0.05  # Exploration rate
 epsilon_min = 0.01
 epsilon_decay = 0.995
 num_episodes = 1000
@@ -62,4 +60,4 @@ def get_total_reward():
     return total_reward
 
 def save_model():
-    model.save("/kaggle/working/model.h5")
+    model.save("model.h5")
